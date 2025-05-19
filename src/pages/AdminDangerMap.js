@@ -32,13 +32,13 @@ const AdminDangerMapPage = () => {
   useEffect(() => {
     const fetchRoutes = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/api/complaintsmap');
+        const res = await axios.get('https://3fe4-1-212-96-50.ngrok-free.app/api/complaintsmap');
         const updatedPaths = [];
 
         for (const path of res.data) {
           if (!path.route_coords) {
             try {
-              const registerRes = await axios.post('http://localhost:3001/api/router/register', {
+              const registerRes = await axios.post('https://3fe4-1-212-96-50.ngrok-free.app/api/router/register', {
                 start_lat: path.start_lat,
                 start_lng: path.start_lng,
                 end_lat: path.end_lat,

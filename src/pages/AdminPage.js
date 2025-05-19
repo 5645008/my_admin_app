@@ -53,7 +53,7 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    axios.get('http://15.164.94.96:3001/api/complaints')
+    axios.get('https://3fe4-1-212-96-50.ngrok-free.app/api/complaints')
       .then(res => {
         setComplaints(res.data);
         setFiltered(res.data);
