@@ -79,7 +79,12 @@ const AdminPage = () => {
     generateCharts(result);
   }, [searchTerm, selectedCategory, selectedRegion, selectedDanger, complaints]);
 
-  const generateCharts = (data) => {
+   const generateCharts = (data) => {
+    if (!Array.isArray(data)) {
+      console.error('📛 차트 생성 실패: 배열이 아님:', data);
+      return;
+    }
+
     const categoryCount = {};
     const keywordCount = {};
 
