@@ -53,7 +53,7 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    axios.get('https://3fe4-1-212-96-50.ngrok-free.app/api/complaints')
+    axios.get('https://moyak.store/api/complaints')
       .then(res => {
         setComplaints(res.data);
         setFiltered(res.data);
