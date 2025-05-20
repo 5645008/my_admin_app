@@ -21,23 +21,7 @@ const AdminDangerMapPage = () => {
     setSelectedDangerLevel('전체');
   };
 
-  useEffect(() => {
-  if (document.getElementById('naver-map-script')) return;
-
-  const script = document.createElement('script');
-  script.id = 'naver-map-script';
-  script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_CLIENT_ID}`;
-  script.async = true;
-  script.onload = () => {
-    console.log('✅ Naver map script loaded');
-    // 여기서 지도 초기화 코드를 직접 호출해도 됩니다.
-  };
-  document.head.appendChild(script);
-
-  return () => {
-    document.head.removeChild(script);
-  };
-}, []);
+  
 
   useEffect(() => {
     if (selectedUserType === '노인') {
