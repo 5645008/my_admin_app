@@ -22,6 +22,21 @@ const AdminDangerMapPage = () => {
   };
 
   useEffect(() => {
+  // 이미 스크립트가 삽입되어 있다면 중복 삽입 방지
+  if (document.getElementById('naver-map-script')) return;
+
+  const script = document.createElement('script');
+  script.id = 'naver-map-script';
+  script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_MAP_CLIENT_ID}`;
+  script.async = true;
+  document.head.appendChild(script);
+
+  return () => {
+    document.head.removeChild(script);
+  };
+}, []);
+
+  useEffect(() => {
     if (selectedUserType === '노인') {
       setSelectedAgeGroup('');
     } else if (selectedAgeGroup === '') {
