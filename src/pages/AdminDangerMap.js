@@ -22,13 +22,16 @@ const AdminDangerMapPage = () => {
   };
 
   useEffect(() => {
-  // 이미 스크립트가 삽입되어 있다면 중복 삽입 방지
   if (document.getElementById('naver-map-script')) return;
 
   const script = document.createElement('script');
   script.id = 'naver-map-script';
   script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_CLIENT_ID}`;
   script.async = true;
+  script.onload = () => {
+    console.log('✅ Naver map script loaded');
+    // 여기서 지도 초기화 코드를 직접 호출해도 됩니다.
+  };
   document.head.appendChild(script);
 
   return () => {
