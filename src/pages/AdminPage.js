@@ -17,6 +17,9 @@ const AdminPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [selectedRegion, setSelectedRegion] = useState('전체');
   const [selectedDanger, setSelectedDanger] = useState('전체');
+  const [selectedUserType, setSelectedUserType] = useState('전체'); // 예: 남성/여성/전체
+const [selectedAgeGroup, setSelectedAgeGroup] = useState('전체'); // 예: 어린이/청소년/노인 등
+
   const [hoveredRegion, setHoveredRegion] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [closeTimeout, setCloseTimeout] = useState(null);
@@ -73,7 +76,11 @@ const AdminPage = () => {
       const matchesCategory = selectedCategory === '전체' || c.category === selectedCategory;
       const matchesRegion = selectedRegion === '전체' || (c.location && c.location.includes(selectedRegion));
       const matchesDanger = selectedDanger === '전체' || (selectedDanger === '위험' ? c.is_danger === 1 : c.is_danger !== 1);
-      return matchesSearch && matchesCategory && matchesRegion && matchesDanger;
+      const matchesUserType = selectedUserType === '전체' || c.user_type === selectedUserType;
+      const matchesAgeGroup = selectedAgeGroup === '전체' || c.age === selectedAgeGroup;
+
+      return matchesSearch && matchesCategory && matchesRegion && matchesDanger && matchesUserType && matchesAgeGroup;
+
     });
     setFiltered(result);
     generateCharts(result);
