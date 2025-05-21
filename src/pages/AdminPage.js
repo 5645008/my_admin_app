@@ -84,7 +84,13 @@ const [selectedAgeGroup, setSelectedAgeGroup] = useState('전체'); // 예: 어�
     });
     setFiltered(result);
     generateCharts(result);
-  }, [searchTerm, selectedCategory, selectedRegion, selectedDanger, complaints]);
+  }, [searchTerm,
+  selectedCategory,
+  selectedRegion,
+  selectedDanger,
+  selectedUserType,      // ✅ 추가
+  selectedAgeGroup,      // ✅ 추가
+  complaints]);
 
    const generateCharts = (data) => {
     if (!Array.isArray(data)) {
