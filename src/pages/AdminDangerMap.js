@@ -344,8 +344,9 @@ const AdminDangerMapPage = () => {
                     : p.category === selectedCategory);
 
                 const dangerMatch = selectedDangerLevel === '전체' || danger === selectedDangerLevel;
-                const userTypeMatch = p.user_type === selectedUserType || selectedUserType === '노인';
-                const ageMatch = selectedAgeGroup === '어린이' ? p.age <= 14 : p.age >= 15;
+                const userTypeMatch = p.user_type === selectedUserType;
+                const ageMatch = selectedUserType === '노인' ? true : selectedAgeGroup === '어린이' ? p.age <= 14 : p.age >= 15;
+
                 return catMatch && dangerMatch && userTypeMatch && ageMatch;
               })
               .slice(0, 10)
