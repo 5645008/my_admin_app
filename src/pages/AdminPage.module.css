@@ -287,3 +287,16 @@
   background-color: #3730a3;
   transform: translateY(-1px);
 }
+.admin-delete-button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.admin-delete-button:hover {
+  background-color: #dc2626;
+}
