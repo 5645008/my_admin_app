@@ -56,7 +56,7 @@ const AdminPage = () => {
     if (!window.confirm('정말 삭제하시겠습니까?')) return;
 
     try {
-      await axios.delete(`http://moyak.store/api/deletecomplaints/${id}`);
+      await axios.delete(`https://moyak.store/api/deletecomplaints/${id}`);
       setComplaints(prev => prev.filter(c => c.id !== id));
     } catch (error) {
       alert('삭제 중 오류 발생');
@@ -65,7 +65,7 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    axios.get('http://moyak.store/api/complaints')
+    axios.get('https://moyak.store/api/complaints')
       .then(res => {
         setComplaints(res.data);
         setFiltered(res.data);
