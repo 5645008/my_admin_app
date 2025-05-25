@@ -25,7 +25,7 @@ const AdminDangerMapPage = () => {
     if (!window.confirm('정말 삭제하시겠습니까?')) return;
 
     try {
-      await axios.delete(`http://moyak.store/api/deletecomplaintsmap/${id}`);
+      await axios.delete(`https://moyak.store/api/deletecomplaintsmap/${id}`);
       setPaths(prev => prev.filter(p => p.id !== id));
     } catch (error) {
       alert('삭제 중 오류 발생');
@@ -45,13 +45,13 @@ const AdminDangerMapPage = () => {
   useEffect(() => {
     const fetchRoutes = async () => {
       try {
-        const res = await axios.get('http://moyak.store/api/complaintsmap');
+        const res = await axios.get('https://moyak.store/api/complaintsmap');
         const updatedPaths = [];
 
         for (const path of res.data) {
           if (!path.route_coords) {
             try {
-              const registerRes = await axios.post('http://moyak.store/api/router/register', {
+              const registerRes = await axios.post('https://moyak.store/api/router/register', {
                 start_lat: path.start_lat,
                 start_lng: path.start_lng,
                 end_lat: path.end_lat,
