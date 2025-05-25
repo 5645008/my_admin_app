@@ -17,9 +17,6 @@ const AdminPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [selectedRegion, setSelectedRegion] = useState('전체');
   const [selectedDanger, setSelectedDanger] = useState('전체');
-  const [selectedUserType, setSelectedUserType] = useState('전체'); // 예: 남성/여성/전체
-const [selectedAgeGroup, setSelectedAgeGroup] = useState('전체'); // 예: 어린이/청소년/노인 등
-
   const [hoveredRegion, setHoveredRegion] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [closeTimeout, setCloseTimeout] = useState(null);
@@ -54,9 +51,21 @@ const [selectedAgeGroup, setSelectedAgeGroup] = useState('전체'); // 예: 어�
     '달서구': ['호산로', '호산동로', '달구벌대로', '달서대로', '선원로', '계대동문로', '성서대로', '서당로', '신당로'],
     '달성군': []
   };
+  //민원삭제부분
+  const handleDelete = async (id) => {
+    if (!window.confirm('정말 삭제하시겠습니까?')) return;
+
+    try {
+      await axios.delete(`http://moyak.store:3001/api/deletecomplaints/${id}`);
+      setComplaints(prev => prev.filter(c => c.id !== id));
+    } catch (error) {
+      alert('삭제 중 오류 발생');
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    axios.get('https://moyak.store/api/complaints')
+    axios.get('http://moyak.store:3001/api/complaints')
       .then(res => {
         setComplaints(res.data);
         setFiltered(res.data);
@@ -76,28 +85,13 @@ const [selectedAgeGroup, setSelectedAgeGroup] = useState('전체'); // 예: 어�
       const matchesCategory = selectedCategory === '전체' || c.category === selectedCategory;
       const matchesRegion = selectedRegion === '전체' || (c.location && c.location.includes(selectedRegion));
       const matchesDanger = selectedDanger === '전체' || (selectedDanger === '위험' ? c.is_danger === 1 : c.is_danger !== 1);
-      const matchesUserType = selectedUserType === '전체' || c.user_type === selectedUserType;
-      const matchesAgeGroup = selectedAgeGroup === '전체' || c.age === selectedAgeGroup;
-
-      return matchesSearch && matchesCategory && matchesRegion && matchesDanger && matchesUserType && matchesAgeGroup;
-
+      return matchesSearch && matchesCategory && matchesRegion && matchesDanger;
     });
     setFiltered(result);
     generateCharts(result);
-  }, [searchTerm,
-  selectedCategory,
-  selectedRegion,
-  selectedDanger,
-  selectedUserType,      // ✅ 추가
-  selectedAgeGroup,      // ✅ 추가
-  complaints]);
+  }, [searchTerm, selectedCategory, selectedRegion, selectedDanger, complaints]);
 
-   const generateCharts = (data) => {
-    if (!Array.isArray(data)) {
-      console.error('📛 차트 생성 실패: 배열이 아님:', data);
-      return;
-    }
-
+  const generateCharts = (data) => {
     const categoryCount = {};
     const keywordCount = {};
 
@@ -256,6 +250,12 @@ const [selectedAgeGroup, setSelectedAgeGroup] = useState('전체'); // 예: 어�
                 <p className={styles['admin-complaint-meta']}>{c.category} | {formatDate(c.created_at)}</p>
                 <p className={styles['admin-complaint-content']}>{c.content}</p>
                 {c.is_danger === 1 && <p className={styles['admin-complaint-danger']}>⚠️ 위험 민원</p>}
+                <button
+                  onClick={() => handleDelete(c.id)}
+                  className={styles['admin-delete-button']}
+                >
+                  🗑️ 삭제
+                </button>
               </li>
             ))}
           </ul>
