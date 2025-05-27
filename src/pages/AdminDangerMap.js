@@ -11,12 +11,12 @@ const AdminDangerMapPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [selectedDangerLevel, setSelectedDangerLevel] = useState('전체');
   const [selectedUserType, setSelectedUserType] = useState('남성');
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState('어린이');
+  const [selectedAgeGroup, setSelectedAgeGroup] = useState('청년');
   const [selectedPath, setSelectedPath] = useState(null);
 
   const handleResetFilters = () => {
     setSelectedUserType('남성');
-    setSelectedAgeGroup('어린이');
+    setSelectedAgeGroup('청년');
     setSelectedCategory('전체');
     setSelectedDangerLevel('전체');
   };
