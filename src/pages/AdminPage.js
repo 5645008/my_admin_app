@@ -122,7 +122,7 @@ const AdminPage = () => {
       labels: Object.keys(categoryCount),
       datasets: [{
         label: '카테고리별 민원 수',
-        data: Object.values(categoryCount),
+        data: Object.values(categoryCount).map(v => typeof v === 'number' ? v : Number(v.value || v)),
         backgroundColor: ['#4f46e5', '#06b6d4', '#facc15', '#f472b6', '#10b981', '#f97316']
       }]
     });
