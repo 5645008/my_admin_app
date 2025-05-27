@@ -116,6 +116,9 @@ const AdminPage = () => {
       keywords.forEach(([kw]) => {
         keywordCount[kw] = (keywordCount[kw] || 0) + 1;
       });
+      console.log('🟡 categoryCount:', categoryCount);
+console.log('🟠 data:', Object.values(categoryCount).map(v => typeof v === 'number' ? v : Number(v.value || v)));
+
     });
 
     setCategoryData({
