@@ -16,7 +16,7 @@ const AdminDangerMapPage = () => {
 
   const handleResetFilters = () => {
     setSelectedUserType('남성');
-    setSelectedAgeGroup('청년');
+    setSelectedAgeGroup('어린이');
     setSelectedCategory('전체');
     setSelectedDangerLevel('전체');
   };
