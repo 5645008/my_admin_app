@@ -122,7 +122,11 @@ const AdminPage = () => {
       labels: Object.keys(categoryCount),
       datasets: [{
         label: '카테고리별 민원 수',
-        data: Object.values(categoryCount).map(v => typeof v === 'number' ? v : Number(v.value || v)),
+        data: Object.values(categoryCount).map(v => {
+          if (typeof v === 'number') return v;
+          if (typeof v === 'object' && v !== null && 'value' in v) return Number(v.value);
+          return Number(v); // 혹시 문자열 '48' 같은 경우
+        }),
         backgroundColor: ['#4f46e5', '#06b6d4', '#facc15', '#f472b6', '#10b981', '#f97316']
       }]
     });
