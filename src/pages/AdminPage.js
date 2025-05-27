@@ -30,13 +30,17 @@ const AdminPage = () => {
     plugins: {
       tooltip: {
         callbacks: {
-          label: (context) => `${context.label}: ${context.parsed.y}건`
+          label: (context) =>
+            `${context.label}: ${typeof context.parsed === 'object' ? context.parsed.y : context.parsed}건`
         }
       },
       legend: { position: 'bottom' }
     },
     scales: {
-      y: { beginAtZero: true, ticks: { stepSize: 1 } }
+      y: {
+        beginAtZero: true,
+        ticks: { stepSize: 1 }
+      }
     }
   };
 
