@@ -36,9 +36,9 @@ const AdminDangerMapPage = () => {
 
   useEffect(() => {
     if (selectedUserType === '노인') {
-      setSelectedAgeGroup('');
-    } else if (selectedAgeGroup === '') {
-      setSelectedAgeGroup('어린이');
+      setSelectedAgeGroup('전체');
+    } else if (selectedAgeGroup === '전체') {
+      setSelectedAgeGroup('전체'); // 그대로 유지
     }
   }, [selectedUserType]);
 
@@ -108,7 +108,10 @@ const AdminDangerMapPage = () => {
 
   const dangerMatch = selectedDangerLevel === '전체' || danger === selectedDangerLevel;
   const userTypeMatch = p.user_type === selectedUserType;
-  const ageMatch = selectedUserType === '노인' ? true : selectedAgeGroup === '어린이' ? p.age <= 14 : p.age >= 15;
+  const ageMatch =
+    selectedUserType === '노인' ? true :
+    selectedAgeGroup === '전체' ? true :
+    selectedAgeGroup === '어린이' ? p.age <= 14 : p.age >= 15;
 
   return catMatch && dangerMatch && userTypeMatch && ageMatch;
 });
@@ -261,7 +264,7 @@ const AdminDangerMapPage = () => {
               style={{ padding: '6px 12px', fontSize: '1rem' }}
               disabled={selectedUserType === '노인'}
             >
-              {['어린이', '청년'].map((age) => (
+              {['전체', '어린이', '청년'].map((age) => (
                 <option key={age} value={age}>{age}</option>
               ))}
             </select>
@@ -356,7 +359,10 @@ const AdminDangerMapPage = () => {
 
                 const dangerMatch = selectedDangerLevel === '전체' || danger === selectedDangerLevel;
                 const userTypeMatch = p.user_type === selectedUserType;
-                const ageMatch = selectedUserType === '노인' ? true : selectedAgeGroup === '어린이' ? p.age <= 14 : p.age >= 15;
+                const ageMatch =
+                  selectedUserType === '노인' ? true :
+                  selectedAgeGroup === '전체' ? true :
+                  selectedAgeGroup === '어린이' ? p.age <= 14 : p.age >= 15;
                 return catMatch && dangerMatch && userTypeMatch && ageMatch;
               })
               .slice(0, 10)
