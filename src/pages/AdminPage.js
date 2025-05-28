@@ -153,6 +153,12 @@ const AdminPage = () => {
   return (
     <div className={styles['admin-wrapper']}>
       <div className={styles['admin-container']}>
+        <div className={styles['admin-header-button']}>
+          <Link to="/admin/danger-map" className={styles['admin-link-button']}>
+            🗺️ 위험 지도 보기
+          </Link>
+        </div>
+
         <h1 className={styles['admin-title']}>📊 관리자 페이지</h1>
 
         <div className={styles['admin-filter-bar']}>
@@ -267,11 +273,6 @@ const AdminPage = () => {
               </li>
             ))}
           </ul>
-        </div>
-        <div className={styles['admin-button-container']}>
-          <Link to="/admin/danger-map" className={styles['admin-link-button']}>
-            🗺️ 위험 지도 보기
-          </Link>
         </div>
       </div>
     </div>
