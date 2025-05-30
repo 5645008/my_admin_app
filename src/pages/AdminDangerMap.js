@@ -366,31 +366,38 @@ const AdminDangerMapPage = () => {
                 return catMatch && dangerMatch && userTypeMatch && ageMatch;
               })
               .slice(0, 10)
-              .map((item, idx) => (
-                <li key={idx} className={styles['admin-complaint-item']}>
-                  <p>
-                    {item.user_type} / {selectedAgeGroup} / {item.category || '없음'} / 위험점수: {item.danger_score !== undefined ? item.danger_score : '없음'}
+              .map((item, idx) => {
+                // 연령 그룹 표시 로직
+                let displayAgeGroup = selectedAgeGroup;
+                if (selectedUserType !== '노인' && selectedAgeGroup === '전체') {
+                  displayAgeGroup = item.age <= 14 ? '어린이' : '청년';
+                }
+                return (
+                  <li key={idx} className={styles['admin-complaint-item']}>
+                    <p>
+                      {item.user_type} / {displayAgeGroup} / {item.category || '없음'} / 위험점수: {item.danger_score !== undefined ? item.danger_score : '없음'}
  / 위험등급: {(item.danger_level ?? '').trim() || '없음'}
-                  </p>
-                  <p>{item.reason || '내용 없음'}</p>
-                  <p>{formatDate(item.created_at)}</p>
-                  <button
-                    onClick={() => handleDeletePath(item.id)}
-                    style={{
-                      marginTop: '8px',
-                      padding: '6px 12px',
-                      backgroundColor: '#ef4444',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      fontSize: '0.9rem',
-                    }}
-                  >
-                    🗑️ 삭제
-                  </button>
-                </li>
-              ))}
+                    </p>
+                    <p>{item.reason || '내용 없음'}</p>
+                    <p>{formatDate(item.created_at)}</p>
+                    <button
+                      onClick={() => handleDeletePath(item.id)}
+                      style={{
+                        marginTop: '8px',
+                        padding: '6px 12px',
+                        backgroundColor: '#ef4444',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontSize: '0.9rem',
+                      }}
+                    >
+                      🗑️ 삭제
+                    </button>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>
